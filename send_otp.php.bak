@@ -1,0 +1,19 @@
+<?php
+include('config.php');
+include_once('phpmailer/class.smtp.php');
+include_once('phpmailer/class.pop3.php');
+include_once('email.class.inc.php');
+
+if(isset($_POST['email'])) {
+    $email = $_POST['email'];
+    $otp = generateOTP(); // Assuming generateOTP() function is defined in config.php
+    $sent = sendOTP($email, $otp); // Assuming sendOTP() function is defined in config.php
+    if($sent) {
+        echo json_encode(array("success" => true));
+    } else {
+        echo json_encode(array("success" => false));
+    }
+} else {
+    echo json_encode(array("success" => false));
+}
+?>
